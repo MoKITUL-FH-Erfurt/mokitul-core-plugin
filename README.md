@@ -1,4 +1,4 @@
-# mokitulcore
+# MoKITUL Core Plugin
 
 This plugin is the mokitul core plugin for moodle.
 It exposes a set of functions like allowing to call the python based RAG-API.
