@@ -1,11 +1,10 @@
-# MoKITUL Core Plugin
+# mokitulcore #
 
-This plugin is the mokitul core plugin for moodle.
-It exposes a set of functions like allowing to call the python based RAG-API.
+TODO Describe the plugin shortly here.
 
-As both the block- and activity-plugin require the core plugin, this plugin needs to be installed first.
+TODO Provide more detailed description here.
 
-## Installing via uploaded ZIP file
+## Installing via uploaded ZIP file ##
 
 1. Log in to your Moodle site as an admin and go to _Site administration >
    Plugins > Install plugins_.
@@ -13,9 +12,24 @@ As both the block- and activity-plugin require the core plugin, this plugin need
    extra details if your plugin type is not automatically detected.
 3. Check the plugin validation report and finish the installation.
 
-## License
+## Installing manually ##
 
-2024 MoKITUL Projekt <mokitul@fh-erfurt.de>
+The plugin can be also installed by putting the contents of this directory to
+
+    {your/moodle/dirroot}/local/mokitul
+
+Afterwards, log in to your Moodle site as an admin and go to _Site administration >
+Notifications_ to complete the installation.
+
+Alternatively, you can run
+
+    $ php admin/cli/upgrade.php
+
+to complete the installation from the command line.
+
+## License ##
+
+2024 Your Name <you@example.com>
 
 This program is free software: you can redistribute it and/or modify it under
 the terms of the GNU General Public License as published by the Free Software
@@ -28,8 +42,3 @@ PARTICULAR PURPOSE.  See the GNU General Public License for more details.
 
 You should have received a copy of the GNU General Public License along with
 this program.  If not, see <https://www.gnu.org/licenses/>.
-
-## Trademarks and Disclaimer
-
-This project is not affiliated with Moodle.
-Moodle is a registered trademark. Our project merely develops and provides plugins for use within Moodle.

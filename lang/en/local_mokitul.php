@@ -28,6 +28,11 @@ defined("MOODLE_INTERNAL") || die();
 $string["pluginname"] = "mokitulcore";
 $string["serviceUrl"] = "Service URL";
 $string["serviceUrlDesc"] = "The URL of the service to connect to.";
+
+$string["llmServiceUrl"] = "LLM inference URL";
+$string["llmServiceUrlDesc"] =
+    "The URL of the MoKITUL LLM Service to connect to.";
+
 $string["analyticsUrl"] = "Analytics URL";
 $string["analyticsUrlDesc"] = "The URL of the analyitcs service to connect to.";
 

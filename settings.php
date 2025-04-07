@@ -43,6 +43,17 @@ if ($hassiteconfig) {
             PARAM_TEXT
         )
     );
+
+    $settings->add(
+        new admin_setting_configtext(
+            "local_mokitul/llmServiceUrl",
+            get_string("llmServiceUrl", "local_mokitul"),
+            get_string("llmServiceUrlDesc", "local_mokitul"),
+            "",
+            PARAM_TEXT
+        )
+    );
+
     $settings->add(
         new admin_setting_configtext(
             "local_mokitul/analyticsUrl",

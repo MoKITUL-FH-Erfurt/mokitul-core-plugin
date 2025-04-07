@@ -7,7 +7,9 @@ class MokitulV1Client
     private $user_id;
 
     private $service_url;
+    private $llm_service_url;
     private $analytics_url;
+    private $ollama_model;
 
     private $curl;
 
@@ -15,12 +17,53 @@ class MokitulV1Client
     private $summary_path;
     private $analytics_path;
 
+    function CallAPI($method, $url, $data = false)
+    {
+        $curl = curl_init();
+
+        switch ($method) {
+            case "POST":
+                curl_setopt($curl, CURLOPT_POST, 1);
+
+                if ($data) {
+                    curl_setopt($curl, CURLOPT_POSTFIELDS, $data);
+                }
+                break;
+            case "PUT":
+                curl_setopt($curl, CURLOPT_CUSTOMREQUEST, "PUT");
+
+                if ($data) {
+                    curl_setopt($curl, CURLOPT_POSTFIELDS, $data);
+                }
+                break;
+            default:
+                if ($data) {
+                    $url = sprintf("%s?%s", $url, http_build_query($data));
+                }
+        }
+
+        // Optional Authentication:
+
+        curl_setopt($curl, CURLOPT_URL, $url);
+        curl_setopt($curl, CURLOPT_HTTPHEADER, [
+            "Content-Type: application/json",
+        ]);
+        curl_setopt($curl, CURLOPT_RETURNTRANSFER, 1);
+
+        $result = curl_exec($curl);
+
+        curl_close($curl);
+
+        return $result;
+    }
+
     public function __construct()
     {
         global $USER;
         $this->user_id = $USER->id;
 
         $this->service_url = get_config("local_mokitul", "serviceUrl");
+        $this->llm_service_url = get_config("local_mokitul", "llmServiceUrl");
         $this->analytics_url = get_config("local_mokitul", "analyticsUrl"); //get_config('local_mokitul', 'analyticsUrl');
         $this->ollama_model = get_config("local_mokitul", "llmModel");
 
@@ -55,12 +98,9 @@ class MokitulV1Client
     }
 
     // retrieves all conversations for a user
-    public function query_all_conversations(
-        $courseId = null,
-        $fileId = null,
-        $scope = null
-    ) {
-        $url = "$this->service_url/api/v1/conversations/?user_id=$this->user_id&course_id=$courseId&file_id=$fileId&scope=$scope";
+    public function query_all_conversations($courseId = null, $fileId = null)
+    {
+        $url = "$this->service_url/api/v1/conversations/?user_id=$this->user_id&course_id=$courseId&file_id=$fileId";
 
         $response = $this->curl->get($url);
 
@@ -101,7 +141,7 @@ class MokitulV1Client
     // also pushed the message to the history of a conversation
     public function send_message(string $conversationId, string $message)
     {
-        $url = "$this->service_url/api/v1/conversations/$conversationId/message";
+        $url = "$this->llm_service_url/api/v1/conversations/$conversationId/message";
 
         $data = [
             "message" => $message,
